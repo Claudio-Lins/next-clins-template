@@ -1,21 +1,15 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 
 import { ModeToggle } from "@/components/theme/mode-toggle";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { cn } from "@/lib/utils";
 
-const fontSans = FontSans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const fontHeading = localFont({
-  src: "../assets/fonts/CalSans-SemiBold.woff2",
-  variable: "--font-heading",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -43,8 +37,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-          fontHeading.variable,
+          inter.variable,
         )}
       >
         <ThemeProvider
@@ -53,7 +46,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="relative flex min-h-screen flex-col items-center justify-between bg-muted p-24 antialiased">
+          <main className="">
             <ModeToggle />
             {children}
           </main>
