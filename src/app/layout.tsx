@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import "./globals.css";
 
 import type { Metadata } from "next";
@@ -5,6 +6,7 @@ import { Inter } from "next/font/google";
 
 import { ModeToggle } from "@/components/theme/mode-toggle";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({
@@ -46,10 +48,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="">
-            <ModeToggle />
-            {children}
-          </main>
+          <ModeToggle />
+          <Toaster />
+          {children}
         </ThemeProvider>
       </body>
     </html>

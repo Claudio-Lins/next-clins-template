@@ -5,9 +5,11 @@ import { passwordStrength } from "check-password-strength";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import validator from "validator";
 import { z } from "zod";
 
+import { registerUser } from "@/lib/actions/authActions";
 import { cn } from "@/lib/utils";
 
 import { Button } from "../ui/button";
@@ -32,7 +34,7 @@ const SignUpFormSchema = z
         message: "Last name must only contain letters",
       }),
     email: z.string().email("Invalid email address"),
-    phone: z.string().refine((value) => validator.isMobilePhone(value), {
+    phoneNumber: z.string().refine((value) => validator.isMobilePhone(value), {
       message: "Invalid phone number",
     }),
     password: z
@@ -77,7 +79,13 @@ export function SignUpForm() {
   }, [watch().password]);
 
   async function createUser(data: SignUpFormValues) {
-    console.log(data);
+    const { termsAndConditions, confirmPassword, ...user } = data;
+    toast.success("User created successfully");
+    try {
+      const result = await registerUser(user);
+    } catch (error) {
+      toast.error("Error creating user: " + error);
+    }
   }
 
   return (
@@ -133,10 +141,10 @@ export function SignUpForm() {
           id="phone"
           className={cn(
             " placeholder:text-xs placeholder:text-rose-500",
-            errors.phone ? "border-red-600" : "",
+            errors.phoneNumber ? "border-red-600" : "",
           )}
-          placeholder={errors.phone ? errors.phone?.message : ""}
-          {...register("phone")}
+          placeholder={errors.phoneNumber ? errors.phoneNumber?.message : ""}
+          {...register("phoneNumber")}
         />
       </div>
       <div className="relative flex w-full flex-col space-y-2">
