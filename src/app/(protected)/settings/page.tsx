@@ -9,7 +9,10 @@ export default async function SettingsPage() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center space-y-6">
       <h1>Settings</h1>
-      <p>Logged in as {session?.user.email}</p>
+      <p>Logged in as {session?.user.role}</p>
+      <pre>
+        <code>{JSON.stringify(session, null, 2)}</code>
+      </pre>
 
       <form
         action={async () => {

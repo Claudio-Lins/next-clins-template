@@ -52,11 +52,11 @@ export function LoginForm() {
         .then((data: any) => {
           if (data?.error) {
             form.reset();
-            setError(data.error);
+            setError(data?.error);
           }
           if (data?.success) {
             form.reset();
-            setSuccess(data.success);
+            setSuccess(data?.success);
           }
 
           if (data?.twoFactor) {
