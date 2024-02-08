@@ -71,6 +71,18 @@ export const {
         session.user.role = token.role as UserRole;
       }
 
+      if (session.user) {
+        // @ts-ignore
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+      }
+
+      if (session.user) {
+        session.user.name = token.name;
+        session.user.email = token.email;
+        // @ts-ignore
+        session.user.isOAuth = token.isOAuth as boolean;
+      }
+
       return session;
     },
     async jwt({ token }) {
@@ -80,6 +92,7 @@ export const {
       if (!existedUser) return token;
 
       token.role = existedUser.role;
+      token.isTwoFactorEnabled = existedUser.isTwoFactorEnabled;
       return token;
     },
   },
