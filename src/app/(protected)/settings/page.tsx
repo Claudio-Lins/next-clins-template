@@ -1,26 +1,29 @@
-// "use client"
+"use client";
 
+import { logout } from "@/actions/logout";
 import { Button } from "@/components/ui/button";
+import { useCurrentUser } from "@/hooks/user-current-user";
 
-import { auth, signOut } from "../../../../auth";
-
-export default async function SettingsPage() {
-  const session = await auth();
+export default function SettingsPage() {
+  const user = useCurrentUser();
   return (
-    <div className="flex min-h-screen w-full flex-col items-center space-y-6">
-      <h1>Settings</h1>
-      <p>Logged in as {session?.user.role}</p>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
+    <div className="flex min-h-screen w-full flex-col items-center space-y-2">
+      <strong>{user?.name}</strong>
+      <p>{user?.email}</p>
+      <p>{user?.image}</p>
+      <p>{user?.id}</p>
+      <p>{user?.role}</p>
 
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <Button type="submit">Logout</Button>
+      <form>
+        <Button
+          className="mt-8"
+          onClick={() => {
+            logout();
+          }}
+          type="button"
+        >
+          Logout
+        </Button>
       </form>
     </div>
   );

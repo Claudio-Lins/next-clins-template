@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
+import { passwordStrength } from "check-password-strength";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -23,9 +23,11 @@ import { Input } from "@/components/ui/input";
 
 import { RegisterSchema } from "../../../schemas";
 import { CardWrapper } from "./card-wrapper";
+import { PasswordStrength } from "./password-strength";
 
 export function RegisterForm() {
   const router = useRouter();
+  const [passStength, setPassStrength] = useState(0);
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -58,6 +60,10 @@ export function RegisterForm() {
       });
     });
   }
+
+  useEffect(() => {
+    setPassStrength(passwordStrength(form.watch().password).id);
+  }, [form.watch().password]);
   return (
     <CardWrapper
       headerLabel="Create an account"
@@ -141,14 +147,7 @@ export function RegisterForm() {
                         type="password"
                       />
                     </FormControl>
-                    <Button
-                      size="sm"
-                      variant="link"
-                      asChild
-                      className="px-0 font-normal"
-                    >
-                      <Link href="/auth/reset">Forgot password?</Link>
-                    </Button>
+                    <PasswordStrength passStrenght={passStength} />
                     <FormMessage />
                   </FormItem>
                 )}

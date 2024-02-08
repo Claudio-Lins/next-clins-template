@@ -1,6 +1,8 @@
-import { ShieldCheck } from "lucide-react";
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
+import { UserButton } from "./auth/user-button";
 import { Button } from "./ui/button";
 
 const linkItems = [
@@ -25,22 +27,38 @@ const linkItems = [
 type LinkType = (typeof linkItems)[number];
 
 export function Navbar() {
+  const pathname = usePathname();
   return (
     <header>
-      <nav className="shadow-b--md container my-2 flex items-center justify-around border-b-[0.5px]  py-2 shadow-green-100/20">
-        <Button variant={"ghost"} size={"icon"}>
-          <ShieldCheck color="green" className="h-24 w-24" />
-        </Button>
-        <div className="flex space-x-2">
-          {linkItems.map(({ label, path }: LinkType) => (
-            <Link
-              className="rounded-sm  bg-green-800/40 p-2"
-              key={label}
-              href={path}
-            >
-              {label}
-            </Link>
-          ))}
+      <nav className="mt-4 flex w-[600px] items-center justify-between rounded-lg bg-secondary p-4 shadow-md">
+        <div className="items-certer flex space-x-2">
+          <Button
+            asChild
+            variant={pathname === "/server" ? "default" : "outline"}
+          >
+            <Link href="/server">Server</Link>
+          </Button>
+          <Button
+            asChild
+            variant={pathname === "/client" ? "default" : "outline"}
+          >
+            <Link href="/client">Client</Link>
+          </Button>
+          <Button
+            asChild
+            variant={pathname === "/admin" ? "default" : "outline"}
+          >
+            <Link href="/admin">Admin</Link>
+          </Button>
+          <Button
+            asChild
+            variant={pathname === "/settings" ? "default" : "outline"}
+          >
+            <Link href="/settings">Setting</Link>
+          </Button>
+        </div>
+        <div className="">
+          <UserButton />
         </div>
       </nav>
     </header>

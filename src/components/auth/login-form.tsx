@@ -49,7 +49,7 @@ export function LoginForm() {
     setSuccess("");
     startTransition(() => {
       login(values)
-        .then((data: any) => {
+        .then((data) => {
           if (data?.error) {
             form.reset();
             setError(data?.error);
