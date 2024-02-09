@@ -3,6 +3,8 @@
   "plugins": ["simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "error",
-    "no-unused-vars": ["warn", { "varsIgnorePattern": "React" }]
+    "no-unused-vars": ["warn", { "varsIgnorePattern": "React" }],
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
   }
 }
