@@ -2,20 +2,22 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UserRole } from "@prisma/client";
 import NextAuth, { DefaultSession } from "next-auth";
 
+import { getAccountByUserId } from "@/data/account";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getUserById } from "@/data/user";
 
 import authConfig from "./auth.config";
 import prisma from "./src/lib/prisma";
-// import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation"
-// import { getAccountByUserId } from "@/data/account"
 
 declare module "next-auth" {
   interface Session {
-    // @ts-ignore
     user: {
       id: string;
       role: UserRole;
+      name: string;
+      email: string;
+      isOAuth: boolean;
+      isTwoFactorEnabled: boolean;
     } & DefaultSession["user"];
   }
 }
@@ -27,11 +29,13 @@ export const {
   signOut,
 } = NextAuth({
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
+    signIn: "/auth/login",
     error: "/auth/error",
-    verifyRequest: "/auth/verify-request",
-    newUser: "/auth/new-user",
+    // signIn: "/auth/signin",
+    // signOut: "/auth/signout",
+    // error: "/auth/error",
+    // verifyRequest: "/auth/verify-request",
+    // newUser: "/auth/new-user",
   },
   events: {
     async linkAccount({ user }) {
@@ -45,7 +49,7 @@ export const {
     async signIn({ user, account }) {
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user.id!);
+      const existingUser = await getUserById(user.id as string);
       // Prevent sign in if email is not verified
       if (!existingUser?.emailVerified) return false;
 
@@ -63,7 +67,6 @@ export const {
     },
     // @ts-ignore
     async session({ token, session }) {
-      console.log(token);
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -72,27 +75,32 @@ export const {
       }
 
       if (session.user) {
-        // @ts-ignore
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
 
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
-        // @ts-ignore
         session.user.isOAuth = token.isOAuth as boolean;
       }
 
       return session;
     },
     async jwt({ token }) {
-      if (!token) return token;
+      if (!token.sub) return token;
 
-      const existedUser = await getUserById(token.sub!);
-      if (!existedUser) return token;
+      const existingUser = await getUserById(token.sub);
 
-      token.role = existedUser.role;
-      token.isTwoFactorEnabled = existedUser.isTwoFactorEnabled;
+      if (!existingUser) return token;
+
+      const existingAccount = await getAccountByUserId(existingUser.id);
+
+      token.isOAuth = !!existingAccount;
+      token.name = existingUser.name;
+      token.email = existingUser.email;
+      token.role = existingUser.role;
+      token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+
       return token;
     },
   },
