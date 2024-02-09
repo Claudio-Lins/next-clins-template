@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SignUpForm } from "@/components/auth/sign-up-form";
+// import { SignUpForm } from "@/components/auth/sign-up-form";
 import { buttonVariants } from "@/components/ui/button";
 
 export default function SignUpPage() {
@@ -15,7 +15,7 @@ export default function SignUpPage() {
           SignIn
         </Link>
       </div>
-      <SignUpForm />
+      {/* <SignUpForm /> */}
     </div>
   );
 }
