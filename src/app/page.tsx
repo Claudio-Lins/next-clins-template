@@ -1,5 +1,3 @@
-// eslint-disable-next-line simple-import-sort/imports
-
 import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +8,7 @@ export default async function Home() {
         <h1 className="text-muted drop-shadow-md">🔐 Auth</h1>
         <p className="text-muted ">A simple authentication service</p>
         <div className="">
-          <LoginButton>
+          <LoginButton mode="modal" asChild>
             <Button variant={"secondary"} size={"lg"}>
               Sign In
             </Button>
