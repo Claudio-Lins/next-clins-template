@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "prisma generate && next dev",
+    "build": "prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate"
@@ -22,6 +22,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@vercel/postgres": "^0.7.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "check-password-strength": "^2.0.7",
