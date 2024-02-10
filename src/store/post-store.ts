@@ -7,6 +7,7 @@ interface Post {
 }
 interface PostStore {
   posts: Post[];
+  // eslint-disable-next-line no-unused-vars
   addPost: (post: Post) => void;
 }
 

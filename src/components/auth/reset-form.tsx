@@ -30,31 +30,19 @@ export function ResetForm() {
     },
   });
 
-  const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
-  async function onSubmit(values: z.infer<typeof ResetSchema>) {
+  function onSubmit(values: z.infer<typeof ResetSchema>) {
     setError("");
     setSuccess("");
-    startTransition(() => {
-      reset(values)
-        .then((data: any) => {
-          if (data?.error) {
-            form.reset();
-            setError(data?.error);
-          }
-          if (data?.success) {
-            form.reset();
-            setSuccess(data?.success);
-          }
 
-          if (data?.twoFactor) {
-            setShowTwoFactor(true);
-          }
-        })
-        .catch(() => setError("Something went wrong"));
+    startTransition(() => {
+      reset(values).then((data) => {
+        setError(data?.error);
+        setSuccess(data?.success);
+      });
     });
   }
   return (

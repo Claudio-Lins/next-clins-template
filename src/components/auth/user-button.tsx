@@ -26,9 +26,9 @@ export function UserButton() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <LogoutButton>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center justify-between">
+            <p>Logout</p>
             <LogOutIcon className="mr-2 h-4 w-4" />
-            Logout
           </DropdownMenuItem>
         </LogoutButton>
       </DropdownMenuContent>

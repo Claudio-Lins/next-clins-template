@@ -55,7 +55,7 @@ export function NewPasswordForm() {
 
   useEffect(() => {
     setPassStrength(passwordStrength(form.watch().password).id);
-  }, [form.watch().password]);
+  }, [form]);
 
   return (
     <CardWrapper

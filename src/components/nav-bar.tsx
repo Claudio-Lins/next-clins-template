@@ -5,27 +5,6 @@ import { usePathname } from "next/navigation";
 import { UserButton } from "./auth/user-button";
 import { Button } from "./ui/button";
 
-const linkItems = [
-  {
-    label: "Home",
-    path: "/",
-  },
-  {
-    label: "Auth (Client)",
-    path: "/auth-client",
-  },
-  {
-    label: "Auth (Server)",
-    path: "/auth-server",
-  },
-  {
-    label: "Admin Only",
-    path: "/admin-only",
-  },
-] as const;
-
-type LinkType = (typeof linkItems)[number];
-
 export function Navbar() {
   const pathname = usePathname();
   return (
