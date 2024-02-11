@@ -69,6 +69,7 @@ export default function SettingsPage() {
         .catch(() => setError("Something went wrong!"));
     });
   }
+
   return (
     <Card className="w-[600px]">
       <CardHeader>
@@ -170,8 +171,11 @@ export default function SettingsPage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={UserRole.ADMIN}>Admin</SelectItem>
-                        <SelectItem value={UserRole.USER}>User</SelectItem>
+                        {Object.entries(UserRole).map(([key, value]) => (
+                          <SelectItem key={key} value={value}>
+                            {key}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />

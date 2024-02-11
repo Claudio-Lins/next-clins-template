@@ -22,6 +22,7 @@ export async function getUserById(id: string) {
     });
     return user;
   } catch (error) {
-    console.log(error);
+    console.error("Error getting user by ID:", error);
+    throw error; // Lança o erro capturado
   }
 }

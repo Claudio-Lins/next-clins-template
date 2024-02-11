@@ -13,6 +13,7 @@ import { SettingsSchema } from "../../schemas";
 
 export async function settings(values: z.infer<typeof SettingsSchema>) {
   const user = await currentUser();
+  console.table(user);
   if (!user) {
     throw new Error("Unauthorized");
   }

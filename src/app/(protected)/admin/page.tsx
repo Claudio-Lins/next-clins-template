@@ -36,7 +36,7 @@ export default function AdminPage() {
         <p className="text-center text-2xl font-semibold">🔑 Admin Page</p>
       </CardHeader>
       <CardContent className="space-y-4">
-        <RoleGate allowedRoles={UserRole.ADMIN}>
+        <RoleGate allowedRoles={UserRole.SUPER_ADMIN}>
           <FormSuccess message="You are authorized to view this page." />
         </RoleGate>
         <div className="flex items-center justify-between rounded-lg border p-3 shadow-md">
