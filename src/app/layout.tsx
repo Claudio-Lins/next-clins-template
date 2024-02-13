@@ -8,6 +8,8 @@ import { ModeToggle } from "@/components/theme/mode-toggle";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { SessionProvider } from "next-auth/react";
+import { auth } from "../../auth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,30 +31,38 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.variable,
-        )}
+    <SessionProvider session={session}>
+      <html
+        lang="en"
+        className="w-full bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900"
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <body
+          className={cn(
+            "relative min-h-screen w-full bg-transparent font-sans antialiased",
+            inter.variable,
+          )}
         >
-          <ModeToggle />
-          <Toaster />
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ModeToggle />
+            <Toaster />
+            {children}
+            <div className="background-gradient absolute inset-0 -z-50 max-h-screen" />
+            <div className="absolute inset-0 -z-40 h-full bg-[url('/noisetexture.jpg')] opacity-20 mix-blend-soft-light" />
+          </ThemeProvider>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

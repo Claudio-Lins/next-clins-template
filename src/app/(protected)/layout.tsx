@@ -1,8 +1,5 @@
-import { SessionProvider } from "next-auth/react";
-
 import { Navbar } from "@/components/nav-bar";
-
-import { auth } from "../../../auth";
+import { ModeToggle } from "@/components/theme/mode-toggle";
 
 interface ProtectedLayoutProps {
   children: React.ReactNode;
@@ -11,13 +8,13 @@ interface ProtectedLayoutProps {
 export default async function ProtectedLayout({
   children,
 }: ProtectedLayoutProps) {
-  const session = await auth();
   return (
-    <SessionProvider session={session}>
-      <div className="flex min-h-screen w-full flex-col items-center gap-y-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
-        <Navbar />
-        {children}
-      </div>
-    </SessionProvider>
+    <div className="relative flex min-h-screen w-full flex-col items-center gap-y-10 bg-slate-700">
+      <ModeToggle y={32} />
+      <Navbar />
+      {children}
+      <div className="background-gradient absolute inset-0 -z-50 max-h-screen" />
+      <div className="pointer-events-none absolute inset-0 -z-40 h-full bg-[url('/noisetexture.jpg')] opacity-20 mix-blend-soft-light" />
+    </div>
   );
 }

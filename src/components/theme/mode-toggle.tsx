@@ -10,12 +10,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
-export function ModeToggle() {
+interface ModeToggleProps {
+  x?: string | number;
+  y?: string | number;
+}
+
+export function ModeToggle({ x, y }: ModeToggleProps) {
   const { setTheme } = useTheme();
 
   return (
-    <div className="absolute right-4 top-4">
+    <div className={cn("absolute right-4 top-4")} style={{ top: y, right: x }}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon">
