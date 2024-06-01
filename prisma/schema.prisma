@@ -5,10 +5,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// mysql
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 enum UserRole {
@@ -21,6 +21,9 @@ enum UserRole {
 model User {
   id                    String                 @id @default(cuid())
   name                  String?
+  surname               String?
+  client_id             String?                @unique
+  imageUrl              String?
   email                 String?                @unique
   emailVerified         DateTime?
   image                 String?
