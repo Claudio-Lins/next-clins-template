@@ -39,10 +39,7 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <SessionProvider session={session}>
-      <html
-        lang="en"
-        className="w-full bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900"
-      >
+      <html lang="en">
         <body
           className={cn(
             "relative min-h-screen w-full bg-transparent font-sans antialiased",
@@ -58,8 +55,6 @@ export default async function RootLayout({
             <ModeToggle />
             <Toaster />
             {children}
-            <div className="background-gradient absolute inset-0 -z-50 max-h-screen" />
-            <div className="absolute inset-0 -z-40 h-full bg-[url('/noisetexture.jpg')] opacity-20 mix-blend-soft-light" />
           </ThemeProvider>
         </body>
       </html>

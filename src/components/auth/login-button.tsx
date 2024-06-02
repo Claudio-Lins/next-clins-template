@@ -19,7 +19,7 @@ export function LoginButton({ children, mode = "redirect" }: LoginButtonProps) {
     return (
       <Dialog>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="w-auto border-none bg-transparent p-0">
+        <DialogContent className="w-full max-w-sm border-none bg-transparent p-0">
           <LoginForm />
         </DialogContent>
       </Dialog>
