@@ -2,7 +2,20 @@
   "extends": "next/core-web-vitals",
   "plugins": ["simple-import-sort"],
   "rules": {
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "caseSensitive": false
+      }
+    ],
     "no-unused-vars": ["warn", { "varsIgnorePattern": "React" }],
     "react/no-unescaped-entities": "off",
     "@next/next/no-page-custom-font": "off"

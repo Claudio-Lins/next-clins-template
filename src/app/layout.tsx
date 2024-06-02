@@ -1,14 +1,14 @@
-/* eslint-disable simple-import-sort/imports */
 import "./globals.css";
 
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 
 import { ModeToggle } from "@/components/theme/mode-toggle";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
-import { SessionProvider } from "next-auth/react";
+
 import { auth } from "../../auth";
 
 const inter = Inter({
@@ -17,17 +17,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Next Dev - Full-stack Next.js 14",
-  description: "Curso Full-stack Next.js 14",
+  title: "VCA Invest",
+  description:
+    "Bem-vindo à Vera Cruz Assets Investment, onde a gestão financeira encontra seu verdadeiro propósito e os investimentos se tornam uma jornada emocionante em direção à prosperidade. Ao atravessar nossas portas, você não apenas ingressa em uma empresa, mas em uma comunidade dedicada a cultivar seu patrimônio e alcançar seus objetivos financeiros mais ambiciosos",
   keywords: [
-    "Next.js",
-    "Next.js 14",
-    "React.js",
-    "Claudio Lins",
-    "JavaScript",
-    "TypeScript",
-    "Full-stack",
-    "Tailwind CSS",
+    "VCA Invest",
+    "Vera Cruz Assets Investment",
+    "investimentos",
+    "gestão financeira",
+    "prosperidade",
+    "patrimônio",
+    "objetivos financeiros",
+    "comunidade",
+    "empresa",
+    "jornada emocionante",
+    "verdadeiro propósito",
   ],
 };
 
