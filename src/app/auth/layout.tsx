@@ -4,7 +4,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="to-vcaBlue-800 from-vcaBlue-400 flex min-h-screen w-full max-w-[1600px] items-center justify-center bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] p-4">
+    <div className=" flex h-screen w-full max-w-[1600px] items-center justify-center bg-[url('/assets/imgs/sean-pollock-PhYq704ffdA-unsplash.jpg')] bg-cover bg-center px-4">
       {children}
     </div>
   );
