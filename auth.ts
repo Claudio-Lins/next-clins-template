@@ -105,6 +105,11 @@ export const {
     },
   },
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  session: {
+    maxAge: 30 * 1000,
+    // remove token when session is invalid
+    updateAge: 0,
+    strategy: "jwt",
+  },
   ...authConfig,
 });

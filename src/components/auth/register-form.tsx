@@ -72,15 +72,15 @@ export function RegisterForm() {
           <div className="space-y-4">
             <FormField
               control={form.control}
-              name="name"
+              name="client_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>ClientID</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={isPending}
-                      placeholder="john.doe"
+                      placeholder="12345D"
                       type="text"
                     />
                   </FormControl>
