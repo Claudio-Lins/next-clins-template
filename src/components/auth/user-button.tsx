@@ -3,6 +3,7 @@
 import { LogOutIcon, User } from "lucide-react";
 
 import { useCurrentUser } from "@/hooks/user-current-user";
+import { cn } from "@/lib/utils";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
@@ -17,17 +18,22 @@ export function UserButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarImage src={user?.image || ""} alt="User profile picture" />
-          <AvatarFallback className="bg-sky-500">
-            <User className="text-white" />
-          </AvatarFallback>
-        </Avatar>
+        {user && (
+          <Avatar>
+            <AvatarImage src={user?.image || ""} alt="User profile picture" />
+            <AvatarFallback
+              className={cn(user ? "bg-sky-500" : "bg-primary-500")}
+            >
+              <User className="text-white" />
+            </AvatarFallback>
+          </Avatar>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <LogoutButton>
           <DropdownMenuItem className="flex items-center justify-between">
             <p>Logout</p>
+            <LogoutButton />
             <LogOutIcon className="mr-2 h-4 w-4" />
           </DropdownMenuItem>
         </LogoutButton>

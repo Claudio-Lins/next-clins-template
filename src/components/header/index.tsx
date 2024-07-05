@@ -1,14 +1,8 @@
 "use client";
 /* eslint-disable simple-import-sort/imports */
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import { cn } from "@/lib/utils";
 import { GlobeIcon, MenuIcon, MountainIcon } from "lucide-react";
 import Link from "next/link";

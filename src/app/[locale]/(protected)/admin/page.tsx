@@ -1,6 +1,7 @@
 "use client";
 
 import { UserRole } from "@prisma/client";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 import { admin } from "@/actions/admin";
@@ -8,8 +9,17 @@ import { RoleGate } from "@/components/auth/role-gate";
 import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useCurrentUser } from "@/hooks/user-current-user";
+
+import { ExtendedUser } from "../../../../../next-auth";
 
 export default function AdminPage() {
+  const user = useCurrentUser();
+  const extendedUser = user as ExtendedUser | undefined;
+
+  if (!extendedUser) {
+    redirect("/auth/login");
+  }
   function onServerActionClick() {
     admin().then((data) => {
       if (data.success) {
