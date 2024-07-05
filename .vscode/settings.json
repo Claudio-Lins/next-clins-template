@@ -71,8 +71,8 @@
   "editor.semanticHighlighting.enabled": false,
   "editor.guides.bracketPairs": true,
   "editor.minimap.enabled": false,
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
   "editor.formatOnType": true,
   "breadcrumbs.enabled": false,
   "explorer.sortOrder": "foldersNestsFiles",
@@ -85,15 +85,18 @@
   "explorer.fileNesting.enabled": true,
 
   // on save
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": "never",
-    "source.addMissingImports": "explicit",
-    "source.sortImports": "explicit",
-    "source.sortImportsByMembers": "explicit"
-  },
+  // "editor.codeActionsOnSave": {
+  //   "source.organizeImports": "never",
+  //   "source.addMissingImports": "explicit",
+  //   "source.sortImports": "explicit",
+  //   "source.sortImportsByMembers": "explicit"
+  // },
 
   // explorer
   "explorer.compactFolders": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+},
 
   // workbench
   "workbench.editor.enablePreview": false,

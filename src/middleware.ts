@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import createMiddleware from "next-intl/middleware";
+
 import authConfig from "../auth.config";
 import {
   apiAuthPrefix,
