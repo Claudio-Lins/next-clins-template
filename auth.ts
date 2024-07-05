@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UserRole } from "@prisma/client";
-import NextAuth, { DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
 
 import { getAccountByUserId } from "@/data/account";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
@@ -9,18 +9,18 @@ import { getUserById } from "@/data/user";
 import authConfig from "./auth.config";
 import prisma from "./src/lib/prisma";
 
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      role: UserRole;
-      name: string;
-      email: string;
-      isOAuth: boolean;
-      isTwoFactorEnabled: boolean;
-    } & DefaultSession["user"];
-  }
-}
+// declare module "next-auth" {
+//   interface Session {
+//     user: {
+//       id: string;
+//       role: UserRole;
+//       name: string;
+//       email: string;
+//       isOAuth: boolean;
+//       isTwoFactorEnabled: boolean;
+//     } & DefaultSession["user"];
+//   }
+// }
 
 export const {
   handlers: { GET, POST },
@@ -31,11 +31,6 @@ export const {
   pages: {
     signIn: "/auth/login",
     error: "/auth/error",
-    // signIn: "/auth/signin",
-    // signOut: "/auth/signout",
-    // error: "/auth/error",
-    // verifyRequest: "/auth/verify-request",
-    // newUser: "/auth/new-user",
   },
   events: {
     async linkAccount({ user }) {
@@ -104,6 +99,7 @@ export const {
       return token;
     },
   },
+  // @ts-ignore
   adapter: PrismaAdapter(prisma),
   session: {
     maxAge: 30 * 1000,
