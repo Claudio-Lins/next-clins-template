@@ -2,14 +2,17 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 
+import { Header } from "@/components/header";
 import { ModeToggle } from "@/components/theme/mode-toggle";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { SessionProvider } from "next-auth/react";
-import { auth } from "../../auth";
+import { auth } from "../../../auth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,19 +36,22 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
   const session = await auth();
+  const messages = await getMessages();
   return (
     <SessionProvider session={session}>
       <html
-        lang="en"
+        lang={locale}
         className="w-full bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900"
       >
         <body
           className={cn(
-            "relative min-h-screen w-full bg-transparent font-sans antialiased",
+            "relative flex min-h-screen w-full bg-transparent font-sans antialiased",
             inter.variable,
           )}
         >
@@ -57,7 +63,12 @@ export default async function RootLayout({
           >
             <ModeToggle />
             <Toaster />
-            {children}
+            <NextIntlClientProvider messages={messages}>
+              <Header />
+              <div className="flex min-h-screen w-full flex-col items-center gap-y-10 pt-40">
+                {children}
+              </div>
+            </NextIntlClientProvider>
             <div className="background-gradient absolute inset-0 -z-50 max-h-screen" />
             <div className="absolute inset-0 -z-40 h-full bg-[url('/noisetexture.jpg')] opacity-20 mix-blend-soft-light" />
           </ThemeProvider>

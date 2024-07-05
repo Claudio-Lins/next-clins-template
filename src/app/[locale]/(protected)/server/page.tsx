@@ -1,7 +1,7 @@
 import { UserInfo } from "@/components/user-info";
 import { currentUser } from "@/lib/auth";
 
-import { ExtendedUser } from "../../../../next-auth";
+import { ExtendedUser } from "../../../../../next-auth";
 
 export default async function ServerPage() {
   const user = await currentUser();

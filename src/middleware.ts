@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-
+import createMiddleware from "next-intl/middleware";
 import authConfig from "../auth.config";
 import {
   apiAuthPrefix,
@@ -8,9 +8,10 @@ import {
   publicRoutes,
 } from "../routes";
 
+// Middleware de autenticação
 const { auth } = NextAuth(authConfig);
 
-export default auth((req: { auth?: any; nextUrl: any }) => {
+const authMiddleware = auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
@@ -36,13 +37,40 @@ export default auth((req: { auth?: any; nextUrl: any }) => {
     }
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
     return Response.redirect(
-      new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl),
+      new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
     );
   }
 
   return null;
 });
 
+// Middleware de internacionalização
+const intlMiddleware = createMiddleware({
+  // A lista de todos os locais suportados
+  locales: ['en', 'pt'],
+
+  // Usado quando nenhum local corresponde
+  defaultLocale: 'en',
+});
+
+// Combinando os middlewares
+export default function middleware(req: any) {
+  // Primeiro aplica o middleware de internacionalização
+  const intlResponse = intlMiddleware(req);
+  if (intlResponse) {
+    return intlResponse;
+  }
+
+  // Em seguida aplica o middleware de autenticação
+  return authMiddleware(req, {});
+}
+
+// Configuração do matcher
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    '/((?!.+\\.[\\w]+$|_next).*)', 
+    '/', 
+    '/(api|trpc)(.*)', 
+    '/(pt|en)/:path*'
+  ],
 };

@@ -2,7 +2,7 @@
 import { UserInfo } from "@/components/user-info";
 import { useCurrentUser } from "@/hooks/user-current-user";
 
-import { ExtendedUser } from "../../../../next-auth";
+import { ExtendedUser } from "../../../../../next-auth";
 
 export default function ClientPage() {
   const user = useCurrentUser();

@@ -1,0 +1,9 @@
+services:
+  mysql:
+    container_name: clins-template-db
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=clins-template-db
+    ports:
+      - 3306:3306

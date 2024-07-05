@@ -21,10 +21,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { useTranslations } from "next-intl";
 import { LoginSchema } from "../../../schemas";
 import { CardWrapper } from "./card-wrapper";
 
 export function LoginForm() {
+  const t = useTranslations('Index');
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -68,7 +70,7 @@ export function LoginForm() {
   }
   return (
     <CardWrapper
-      headerLabel="Login to your account"
+      headerLabel={t("title")}
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
       showSocial={false}

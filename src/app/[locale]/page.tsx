@@ -1,7 +1,7 @@
 import { Hero } from "@/components/hero";
 import { currentUser } from "@/lib/auth";
 
-import { ExtendedUser } from "../../next-auth";
+import { ExtendedUser } from "../../../next-auth";
 
 export default async function Home() {
   const user = await currentUser();
